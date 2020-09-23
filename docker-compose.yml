@@ -1,0 +1,40 @@
+version: '3.1'
+
+services:
+
+  mongo:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_DATABASE: sertis_mini_blog_mongodb
+    ports:
+        - 27017:27017
+
+  card-service:
+    image: card-service
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    ports:
+        - 8000:8000
+    volumes:
+        - .:/app
+    depends_on:
+        - migration
+
+  migration:
+    build: .
+    image: card-service
+    command: python manage.py migrate
+    volumes:
+        - .:/app
+    depends_on:
+        - make_migrations
+
+  make_migrations:
+    build: .
+    image:  card-service
+    command: python manage.py makemigrations
+    volumes:
+        - .:/app
+    depends_on:
+        - mongo

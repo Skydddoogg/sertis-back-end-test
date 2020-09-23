@@ -25,7 +25,7 @@ SECRET_KEY = '0-7044wqu*g9ax#yl5b@@_rv@af2l=q7t9*j2d&^itxs-%d5%4'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -76,17 +76,14 @@ WSGI_APPLICATION = 'mini_blog_server.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     }
-# }
-
 DATABASES = {
     'default': {
         'ENGINE': 'djongo',
         'NAME': 'sertis_mini_blog_mongodb',
+        'CLIENT': {
+            'host': 'mongo',
+            'port': 27017,
+        }
     }
 }
 
