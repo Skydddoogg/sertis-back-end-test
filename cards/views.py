@@ -18,6 +18,8 @@ class CardList(APIView):
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+        # Provide error message code with request header
         request.META['error_message'] = 'BAD_REQUEST'
 
 class CardDetail(APIView):
@@ -40,8 +42,12 @@ class CardDetail(APIView):
         serializer = CardSerializer(card, data=data)
 
         if serializer.is_valid():
+
+            # Check author field in request data and see whether it is provided or not.
             if 'author' in data:
                 incoming_card_author = data['author'].lower()
+
+                # Check card's author whether it is correct or not.
                 if incoming_card_author == current_card_author:
                     serializer.save()
                     return Response(serializer.data)

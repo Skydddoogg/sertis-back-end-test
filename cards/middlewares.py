@@ -30,7 +30,11 @@ class ErrorMiddleware(BaseMiddleware):
     }
 
     def process_exception(self, request, exception):
+
+        # Get error message code from request header
         error_message = request.META.get('error_message')
-        if error_message not in self.ERRORS: 
+
+        # Raise internal server error in case of no desired error type available.
+        if error_message not in self.ERRORS:
             return HttpResponse(self.ERRORS['INTERNAL_SERVER_ERROR']['message'], status=self.ERRORS['INTERNAL_SERVER_ERROR']['code'])
         return HttpResponse(self.ERRORS[error_message]['message'], status=self.ERRORS[error_message]['code'])
