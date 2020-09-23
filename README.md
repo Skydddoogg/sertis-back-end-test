@@ -5,6 +5,8 @@ run ```docker-compose up``` in terminal.
 ### create 
 URL: ```http://127.0.0.1:8000/api/cards/```
 
+method: POST
+
 Example Request Body:
 ```json
 {
@@ -18,12 +20,18 @@ Example Request Body:
 ### get all
 URL: ```http://127.0.0.1:8000/api/cards/```
 
+method: GET
+
 ### get
 URL: ```http://127.0.0.1:8000/api/cards/<id>/```
+
+method: GET
 
 Example Complete URL: ```http://127.0.0.1:8000/api/cards/5f6ac3711c239d1cbe1c8c81/```
 ### update
 URL: ```http://127.0.0.1:8000/api/cards/<id>/```
+
+method: PUT
 
 Example Complete URL: ```http://127.0.0.1:8000/api/cards/5f6ac3711c239d1cbe1c8c81/```
 
@@ -39,6 +47,8 @@ Example Request Body:
 ```
 ### delete
 URL: ```http://127.0.0.1:8000/api/cards/<id>/```
+
+method: DELETE
 
 Example Complete URL: ```http://127.0.0.1:8000/api/cards/5f6ac3711c239d1cbe1c8c81/```
 
