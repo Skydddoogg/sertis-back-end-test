@@ -46,3 +46,17 @@ class CardDetail(APIView):
                 else:
                     return HttpResponse('Permission denied.', status=403)
         return HttpResponse('Bad request.', status=400)
+
+    def delete(self, request, pk, format=None):
+        card = self.get_object(pk)
+        current_card_author = card.author.lower()
+        data = request.data
+
+        if 'author' in data:
+            incoming_card_author = data['author'].lower()
+            if incoming_card_author == current_card_author:
+                card.delete()
+                return Response(status=status.HTTP_204_NO_CONTENT)
+            else:
+                return HttpResponse('Permission denied.', status=403)
+        return HttpResponse('Bad request.', status=400)
