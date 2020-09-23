@@ -17,6 +17,7 @@ class CardList(APIView):
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
+        request.META['error_message'] = 'BAD_REQUEST'
 
 class CardDetail(APIView):
     def get_object(self, pk):
@@ -44,8 +45,9 @@ class CardDetail(APIView):
                     serializer.save()
                     return Response(serializer.data)
                 else:
-                    return HttpResponse('Permission denied.', status=403)
-        return HttpResponse('Bad request.', status=400)
+                    request.META['error_message'] = 'FORBIDDEN'
+                    return
+        request.META['error_message'] = 'BAD_REQUEST'
 
     def delete(self, request, pk, format=None):
         card = self.get_object(pk)
@@ -58,5 +60,6 @@ class CardDetail(APIView):
                 card.delete()
                 return Response(status=status.HTTP_204_NO_CONTENT)
             else:
-                return HttpResponse('Permission denied.', status=403)
-        return HttpResponse('Bad request.', status=400)
+                request.META['error_message'] = 'FORBIDDEN'
+                return
+        request.META['error_message'] = 'BAD_REQUEST'
