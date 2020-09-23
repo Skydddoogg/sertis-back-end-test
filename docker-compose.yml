@@ -10,6 +10,12 @@ services:
     ports:
         - 27017:27017
 
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+
   card-service:
     image: card-service
     build: .
