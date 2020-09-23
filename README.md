@@ -1,7 +1,8 @@
 # Sertis Back-End Test
-## Let's try
+## Start the server
 run ```docker-compose up``` in terminal.
-## Endpoints
+## Enjoy with the Endpoints
+If you wish to use Postman, please import this collection https://github.com/Skydddoogg/sertis-back-end-test/blob/master/Sertis%20Back-End%20Test.postman_collection.json.
 ### create 
 URL: ```http://127.0.0.1:8000/api/cards/```
 
