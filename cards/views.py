@@ -3,7 +3,7 @@ from cards.serializers import CardSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from django.http import Http404
+from django.http import Http404, HttpResponse
 
 class CardList(APIView):
     def get(self, request, format=None):
@@ -30,3 +30,19 @@ class CardDetail(APIView):
         card = self.get_object(pk)
         serializer = CardSerializer(card)
         return Response(serializer.data)
+
+    def put(self, request, pk, format=None):
+        card = self.get_object(pk)
+        current_card_author = card.author.lower()
+        data = request.data
+        serializer = CardSerializer(card, data=data)
+
+        if serializer.is_valid():
+            if 'author' in data:
+                incoming_card_author = data['author'].lower()
+                if incoming_card_author == current_card_author:
+                    serializer.save()
+                    return Response(serializer.data)
+                else:
+                    return HttpResponse('Permission denied.', status=403)
+        return HttpResponse('Bad request.', status=400)
