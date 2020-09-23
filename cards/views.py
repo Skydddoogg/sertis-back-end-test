@@ -3,7 +3,8 @@ from cards.serializers import CardSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from django.http import Http404, HttpResponse
+from django.http import Http404
+from bson.objectid import ObjectId
 
 class CardList(APIView):
     def get(self, request, format=None):
@@ -22,7 +23,7 @@ class CardList(APIView):
 class CardDetail(APIView):
     def get_object(self, pk):
         try:
-            card = Card.objects.get(pk=pk)
+            card = Card.objects.get(_id=ObjectId(pk))
             return card
         except Card.DoesNotExist:
             raise Http404

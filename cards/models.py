@@ -1,6 +1,7 @@
-from django.db import models
+from djongo import models
 
 class Card(models.Model):
+    _id = models.ObjectIdField()
     name = models.CharField(max_length = 100)
     status = models.BooleanField()
     content = models.TextField()
